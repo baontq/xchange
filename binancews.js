@@ -4,8 +4,7 @@ binance.options({
 	'APISECRET':'{process.env.B_SECRET}'
 });
 
-
-binance.prices(function(ticker) {
-	console.log("prices()", ticker);
-	console.log("Price of BNB: ", ticker.BNBBTC);
+binance.websockets.trades(['BNBBTC', 'ETHBTC'], function(trades) {
+	let {e:eventType, E:eventTime, s:symbol, p:price, q:quantity, m:maker, a:tradeId} = trades;
+	console.log(symbol+" trade update. price: "+price+", quantity: "+quantity+", maker: "+maker);
 });
